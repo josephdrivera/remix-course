@@ -8,10 +8,12 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 
+import styles from "./styles/main.css";
 
-
+// Combine both link arrays into a single export
 export const links = () => [
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
+  { rel: "stylesheet", href: styles },
 ];
 
 export default function App() {
@@ -21,7 +23,7 @@ export default function App() {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
-        <Links />
+        <Links /> {/* This will now include both sets of links */}
       </head>
       <body>
         <Outlet />
@@ -31,8 +33,4 @@ export default function App() {
       </body>
     </html>
   );
-}
-
-export function links() {
-  return [{ rel: "stylesheet", href:  }];
 }
