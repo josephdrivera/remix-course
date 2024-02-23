@@ -1,27 +1,39 @@
-import { redirect } from "@remix-run/node";
-import NewNote, {links as newNoteLinks }  from "../components/NewNote";
-import { getStoredNotes, storeNotes } from "../data/notes";
+import {redirect} from "@remix-run/node";
+import {useLoaderData} from "@remix-run/react";
+import NewNote, {links as newNoteLinks} from "../components/NewNote";
+import NoteList, {links as NoteListLinks} from "../components/NoteList.jsx";
+import {getStoredNotes, storeNotes} from "../data/notes";
 
 export default function NotesPage() {
-    return (
-        <main>
-            <NewNote />
-        </main>
-    );
+	const notes = useLoaderData();
+	return (
+		<main>
+			<NewNote/>
+			<NoteList notes={notes}/>
+		</main>
+	);
 }
 
+export async function loader() {
+	const [notes] = await Promise.all([getStoredNotes()]);
+	return notes;
+}
 
 export async function action({request}) {
-    const formData = await request.formData();
+	const noteData = convertFormDataToObject(await request.formData());
+	noteData.id = new Date().toISOString();
 
-    const noteData = Object.fromEntries(formData);
-    const notes = await getStoredNotes();
-    notes.id = new Date().toISOString();
-    const updatedNotes = notes.concat(noteData);
-    await storeNotes(updatedNotes);
-    return redirect('/notes');
+	const notes = await getStoredNotes();
+	const updatedNotes = [...notes, noteData];
+
+	await storeNotes(updatedNotes);
+	return redirect('/notes');
 }
 
 export function links() {
-    return[ ...newNoteLinks()]
+	return [...newNoteLinks(), ...NoteListLinks()]
+}
+
+function convertFormDataToObject(formData) {
+	return Object.fromEntries(formData);
 }
