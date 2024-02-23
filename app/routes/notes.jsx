@@ -1,8 +1,9 @@
+import NewNote from "../components/NewNote.jsx";
 export default function NotesPage() {
     return (
-        <main id="content">
+        <main>
             <h1>Notes</h1>
-            <p>Here are all your notes:</p>
+            <NewNote />
         </main>
     );
 }
