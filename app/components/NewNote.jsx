@@ -20,6 +20,6 @@ function NewNote() {
 
 export default NewNote;
 
-export function links() {
+export function links () {
     return [{ rel: 'stylesheet', href: styles }];
 }

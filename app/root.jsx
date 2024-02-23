@@ -8,6 +8,7 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 
+import MainNavigation from "./components/MainNavigation.jsx";
 import styles from "./styles/main.css";
 
 // Combine both link arrays into a single export
@@ -25,6 +26,9 @@ export default function App() {
         <Meta />
         <Links /> {/* This will now include both sets of links */}
       </head>
+      <header>
+        <MainNavigation />
+      </header>
       <body>
         <Outlet />
         <ScrollRestoration />
