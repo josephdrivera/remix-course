@@ -1,6 +1,6 @@
 # Welcome to Remix!
 
-- [Remix Docs](https://remix.run/docs)
+- [Remix Docs][def]
 
 ## Development
 
@@ -37,3 +37,6 @@ Make sure to deploy the output of `remix build`
 - `build/`
 - `public/build/`
 # remix-course
+
+
+[def]: https://remix.run/docs
