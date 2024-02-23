@@ -13,16 +13,13 @@ export default function NotesPage() {
 
 export async function action({request}) {
     const formData = await request.formData();
-    const noteData = object.fromEntries([formData]);
-    // validate noteData
 
+    const noteData = Object.fromEntries(formData);
     const notes = await getStoredNotes();
     notes.id = new Date().toISOString();
-    const updatedNotes = existingNotes.concat(noteData);
-    // store updatedNotes
+    const updatedNotes = notes.concat(noteData);
     await storeNotes(updatedNotes);
     return redirect('/notes');
-
 }
 
 export function links() {
